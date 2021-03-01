@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "console-recorder"
+Description: ""
+Resources:
+    iam37e3658:
+        Type: "AWS::IAM::ManagedPolicy"
+        Properties:
+            ManagedPolicyName: "Contractors-Policy"
+            Description: ""
+            PolicyDocument: 
+                Version: "2012-10-17"
+                Statement: 
+                  - 
+                    Sid: "VisualEditor0"
+                    Effect: "Allow"
+                    Action: 
+                      - "iam:GetRole"
+                      - "iam:GetPolicy"
+                      - "iam:GetUser"
+                      - "iam:GetGroup"
+                      - "cloudformation:Describe*"
+                      - "cloudformation:EstimateTemplateCost"
+                      - "cloudformation:Get*"
+                      - "cloudformation:List*"
+                      - "cloudformation:ValidateTemplate"
+                      - "cloudformation:Detect*"
+                    Resource: "*"
+
+    iamee617a1:
+        Type: "AWS::IAM::Role"
+        Properties:
+            RoleName: "contractors"
+            AssumeRolePolicyDocument: 
+                Version: "2012-10-17"
+                Statement: 
+                  - 
+                    Effect: "Allow"
+                    Action: "sts:AssumeRole"
+                    Principal: 
+                        AWS: "204087959985"
+                    Condition: !Ref "AWS::NoValue"
+            ManagedPolicyArns:
+              - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+

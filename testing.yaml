@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "console-recorder"
+Description: ""
+Resources:
+    iam47d4076:
+        Type: "AWS::IAM::ManagedPolicy"
+        Properties:
+            ManagedPolicyName: "contractor_policy"
+            Description: "Allow read access for contractors"
+            PolicyDocument: 
+                Version: "2012-10-17"
+                Statement: 
+                  - 
+                    Sid: "VisualEditor0"
+                    Effect: "Allow"
+                    Action: 
+                      - "iam:GetRole"
+                      - "iam:GetGroupPolicy"
+                      - "iam:GetUser"
+                      - "iam:GetGroup"
+                      - "cloudformation:Describe*"
+                      - "cloudformation:EstimateTemplateCost"
+                      - "cloudformation:Get*"
+                      - "cloudformation:List*"
+                      - "cloudformation:ValidateTemplate"
+                      - "cloudformation:Detect*"
+                    Resource: 
+                      - "arn:aws:cloudformation:*:849660482963:stack/*/*"
+                      - "arn:aws:cloudformation:*:849660482963:stackset/*:*"
+                      - "arn:aws:iam::849660482963:role/*"
+                      - "arn:aws:iam::849660482963:group/*"
+                      - "arn:aws:iam::849660482963:user/*"
+
+    iam4bbb542:
+        Type: "AWS::IAM::Role"
+        Properties:
+            RoleName: "Contractors"
+            AssumeRolePolicyDocument: 
+                Version: "2012-10-17"
+                Statement: 
+                  - 
+                    Effect: "Allow"
+                    Action: "sts:AssumeRole"
+                    Principal: 
+                        AWS: "204087959985"
+                    Condition: !Ref "AWS::NoValue"

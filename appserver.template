@@ -1,0 +1,53 @@
+{
+   "AWSTemplateFormatVersion" : "2010-09-09",
+   "Resources" : {
+      "AppServerRootRole": {
+         "Type": "AWS::IAM::Role",
+         "Properties": {
+            "AssumeRolePolicyDocument": {
+               "Statement": [ {
+                  "Effect": "Allow",
+                  "Principal": {
+                     "Service": [ "ec2.amazonaws.com" ]
+                  },
+                  "Action": [ "sts:AssumeRole" ]
+               } ]
+            },
+            "Path": "/"
+         }
+      },
+      "AppServerRolePolicies": {
+         "Type": "AWS::IAM::Policy",
+         "Properties": {
+            "PolicyName": "AppServerS3Perms",
+            "PolicyDocument": {
+               "Statement": [ {
+                  "Effect": "Allow",
+                  "Action": "s3:*",
+                  "Resource": { "Fn::Join" : ["", [ "arn:aws:s3:::", { "Ref" : "AppBucket" } , "/*" ]
+                  ] }
+               } ]
+            },
+            "Roles": [ { "Ref": "AppServerRootRole" } ]
+         }
+      },
+      "AppServerInstanceProfile": {
+         "Type": "AWS::IAM::InstanceProfile",
+         "Properties": {
+            "Path": "/",
+            "Roles": [ { "Ref": "AppServerRootRole" } ]
+         }
+      },
+     "AppBucket" : {
+      "Type" : "AWS::S3::Bucket"
+      }
+   },
+   "Outputs" : {
+       "BucketName" : {
+           "Value" : { "Ref" : "AppBucket" }
+       },
+       "InstanceProfileName" : {
+           "Value" : { "Ref" : "AppServerInstanceProfile" }
+       }
+   }
+}     

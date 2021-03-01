@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "console-recorder"
+Description: ""
+Resources:
+    iambb36358:
+        Type: "AWS::IAM::Role"
+        Properties:
+            RoleName: "S3-accessor"
+            AssumeRolePolicyDocument: 
+                Version: "2012-10-17"
+                Statement: 
+                  - 
+                    Effect: "Allow"
+                    Action: "sts:AssumeRole"
+                    Principal: 
+                        AWS: "arn:aws:iam::297181656029:user/Zan"
+                    Condition: !Ref "AWS::NoValue"
+            ManagedPolicyArns:
+              - arn:aws:iam::aws:policy/AmazonS3FullAccess
