@@ -4,6 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+.aws
+.aws/config
+.aws/credentials
+
 
 # testing
 /coverage
